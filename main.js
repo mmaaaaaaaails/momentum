@@ -200,16 +200,25 @@ function setCity(e) {
 
 
 const blockquote = document.querySelector('blockquote');
+const quoteAuthor = document.querySelector('.quote_author');
 const btn = document.querySelector('.btn__quote');
 
 async function getQuote() {
-    const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;
+    const url = `https://type.fit/api/quotes`;
     const res = await fetch(url);
     const data = await res.json();
-    if (data.quote.quoteText.length > 70) {
+    // console.log(data[0])
+    // let random = data.map(({ author }) => author);
+    // console.log(random)
+    data.forEach(o => o.data = data.splice(Math.floor(Math.random() * data.length), 1)[0]);
+    // let random = data.splice(Math.floor(Math.random() * data.length), 1)[0];
+    // console.log(blockquote.innerText = `“${random}.”`)
+    // console.log(data)
+    if (data[0].text < 70) {
         getQuote();
     } else {
-        blockquote.textContent = data.quote.quoteText;
+        blockquote.textContent = `“${data[20].text}.”`;
+        quoteAuthor.textContent = `${data[20].author}`;
     }
 }
 

@@ -127,8 +127,12 @@ body {
 }
 
 .main__quote {
-    display: flex;
+    /* display: flex; */
     margin-left: 30px;
+}
+
+.quote_author {
+    margin-top: 10px;
 }
 
 .btn__rotate {
@@ -165,11 +169,12 @@ body {
 
 .quote {
     display: inline-block;
-    padding: 20px;
+    padding: 10px;
     border-radius: 20px;
     font-size: 16px;
     background-color: rgba(0, 0, 0, 0.6);
-    max-height: 64px;
+    /* max-height: 64px; */
+    width: 300px;
 }
 
 @keyframes swing {
