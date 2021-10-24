@@ -207,13 +207,7 @@ async function getQuote() {
     const url = `https://type.fit/api/quotes`;
     const res = await fetch(url);
     const data = await res.json();
-    // console.log(data[0])
-    // let random = data.map(({ author }) => author);
-    // console.log(random)
     data.forEach(o => o.data = data.splice(Math.floor(Math.random() * data.length), 1)[0]);
-    // let random = data.splice(Math.floor(Math.random() * data.length), 1)[0];
-    // console.log(blockquote.innerText = `“${random}.”`)
-    // console.log(data)
     if (data[0].text < 70) {
         getQuote();
     } else {
@@ -242,23 +236,30 @@ async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=en&appid=b2a6be783f202c5ed82810713fdbd194&units=metric`;
     const res = await fetch(url);
 
-    if (res.ok) {
+    try {
         const data = await res.json();
 
         weatherIcon.className = 'weather-icon owf';
         weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-        temperature.textContent = `${data.main.temp}°C`;
-        humidity.textContent = `Humidity: ${data.main.humidity}%`;
+        temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+        humidity.textContent = `Humidity: ${data.main.humidity.toFixed(0)}%`;
         weatherDescription.textContent = data.weather[0].description;
-        wind.textContent = `Wind: ${data.wind.speed} m/s`;
+
+        // localStorage.setItem('wind', e.target.innerText);
+        // wind.textContent = localStorage.getItem(`Wind: ${data.wind.speed.toFixed(0)} m/s`);
 
         document.addEventListener('DOMContentLoaded', getWeather);
         city.addEventListener('keypress', setCity);
         city.textContent = localStorage.getItem('city');
 
-    } else {
+        localStorage.setItem('wind', `Wind: ${data.wind.speed.toFixed(0)} m/s`)
+        windlocal = localStorage.getItem('wind');
+        wind.textContent = windlocal
+        console.log(windlocal)
+
+    } catch (e){
         weatherDescription.textContent = 'Сity not found!';
-        weatherIcon.className = '';
+        weatherIcon.className = '.';
         temperature.textContent = '';
         humidity.textContent = '';
         wind.textContent = '';
