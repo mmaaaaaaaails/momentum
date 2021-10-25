@@ -28,6 +28,13 @@ body {
     text-align: center;
 }
 
+.main__quote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .main__weather {
     display: flex;
     flex-direction: column;
@@ -162,6 +169,7 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
     cursor: pointer;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .quote {
@@ -336,4 +344,12 @@ body {
         padding: 15px;
     }
 
+}
+
+.play {
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    position: relative;
+    left: 30px;
 }
