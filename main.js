@@ -242,20 +242,16 @@ async function getWeather() {
         weatherIcon.className = 'weather-icon owf';
         weatherIcon.classList.add(`owf-${data.weather[0].id}`);
         temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
-        humidity.textContent = `Humidity: ${data.main.humidity.toFixed(0)}%`;
         weatherDescription.textContent = data.weather[0].description;
+        humidity.textContent = `Humidity: ${data.main.humidity.toFixed(0)}%`;
+        wind.textContent = `Wind: ${data.wind.speed.toFixed(0)} m/s`;
 
-        // localStorage.setItem('wind', e.target.innerText);
-        // wind.textContent = localStorage.getItem(`Wind: ${data.wind.speed.toFixed(0)} m/s`);
-
-        document.addEventListener('DOMContentLoaded', getWeather);
         city.addEventListener('keypress', setCity);
-        city.textContent = localStorage.getItem('city');
 
-        localStorage.setItem('wind', `Wind: ${data.wind.speed.toFixed(0)} m/s`)
-        windlocal = localStorage.getItem('wind');
-        wind.textContent = windlocal
-        console.log(windlocal)
+        localStorage.setItem('wind', wind.textContent)
+        localStorage.setItem('temperature', temperature.textContent)
+        localStorage.setItem('desc', weatherDescription.textContent)
+        localStorage.setItem('humidity', humidity.textContent)
 
     } catch (e){
         weatherDescription.textContent = 'Сity not found!';
@@ -265,8 +261,23 @@ async function getWeather() {
         wind.textContent = '';
     }
 
-
 }
+
+document.addEventListener('DOMContentLoaded', getWeather);
+
+const windLocal = localStorage.getItem('wind');
+wind.textContent = windLocal;
+
+const temperatureLocal = localStorage.getItem('temperature');
+temperature.textContent = temperatureLocal;
+
+const description = localStorage.getItem('desc');
+weatherDescription.textContent = description;
+
+const humidityLocal = localStorage.getItem('humidity');
+humidity.textContent = humidityLocal;
+
+city.textContent = localStorage.getItem('city');
 
 
 const loadingScreen = document.getElementById("cube-loader");
@@ -289,7 +300,6 @@ focuss.addEventListener('click', hideFocus);
 city.addEventListener('blur', setCity);
 city.addEventListener('click', hideCity);
 
-getWeather();
 getName();
 getFocus();
 changeBackground();
